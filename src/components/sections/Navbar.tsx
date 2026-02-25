@@ -7,7 +7,7 @@ import { Float } from "@/components/effects/ScrollEffects";
 const navItems = [
   { label: "Inicio", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Características", href: "#caracteristicas" },
+  { label: "Proyectos", href: "#proyectos" },
   { label: "Contacto", href: "#contacto" },
 ];
 

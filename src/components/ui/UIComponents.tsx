@@ -7,7 +7,7 @@ interface CardProps {
   children: ReactNode;
   className?: string;
   hover?: boolean;
-  glow?: "cyan" | "purple" | "pink" | "none";
+  glow?: "cyan" | "purple" | "pink" | "yellow" | "none";
 }
 
 export function Card({ children, className = "", hover = true, glow = "none" }: CardProps) {
@@ -15,6 +15,7 @@ export function Card({ children, className = "", hover = true, glow = "none" }: 
     cyan: "hover:shadow-[0_0_30px_rgba(0,245,212,0.4)]",
     purple: "hover:shadow-[0_0_30px_rgba(155,93,229,0.4)]",
     pink: "hover:shadow-[0_0_30px_rgba(241,91,181,0.4)]",
+    yellow: "hover:shadow-[0_0_30px_rgba(250,204,21,0.4)]",
     none: "",
   };
 
@@ -34,6 +35,8 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export function Button({ 
@@ -41,7 +44,9 @@ export function Button({
   variant = "primary", 
   size = "md", 
   className = "",
-  onClick
+  onClick,
+  type = "button",
+  disabled = false
 }: ButtonProps) {
   const variants = {
     primary: "bg-gradient-to-r from-accent-cyan to-primary-500 text-dark font-bold",
@@ -57,9 +62,11 @@ export function Button({
 
   return (
     <motion.button
-      className={`rounded-full ${variants[variant]} ${sizes[size]} ${className}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      type={type}
+      disabled={disabled}
+      className={`rounded-full ${variants[variant]} ${sizes[size]} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      whileHover={disabled ? {} : { scale: 1.05 }}
+      whileTap={disabled ? {} : { scale: 0.95 }}
       onClick={onClick}
     >
       {children}
