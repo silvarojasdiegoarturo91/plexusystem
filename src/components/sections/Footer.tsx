@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const footerLinks = {
   servicios: [
@@ -38,10 +39,15 @@ export function Footer() {
           <div className="lg:col-span-2">
             <motion.a
               href="#inicio"
-              className="text-3xl font-bold gradient-text mb-6 block"
+              className="block mb-6 relative w-48 h-16"
               whileHover={{ scale: 1.02 }}
             >
-              PlexuSystem
+              <Image
+                src="/logo.png"
+                alt="PlexuSystem"
+                fill
+                className="object-contain object-left"
+              />
             </motion.a>
             <p className="text-gray-400 mb-6 max-w-sm">
               Construimos soluciones tecnológicas de vanguardia para transformar tu negocio. 

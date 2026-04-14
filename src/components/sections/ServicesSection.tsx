@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ScaleOnScroll, Float } from "@/components/effects/ScrollEffects";
+import { ScaleOnScroll, Float, ClickScrollAnimation } from "@/components/effects/ScrollEffects";
 
 const services = [
   {
@@ -50,78 +50,152 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section id="servicios" className="py-32 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-900/10 to-transparent" />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Nuestros <span className="gradient-text">Servicios</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Ofrecemos soluciones tecnológicas integrales para transformar tu negocio
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+    <section id="servicios" className="relative">
+      <ClickScrollAnimation
+        height={80}
+        fixedContent={
+          <div className="py-20 text-center">
             <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ duration: 0.6 }}
             >
-              <ServiceCard service={service} />
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                Nuestros <span className="gradient-text">Servicios</span>
+              </h2>
+              <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                Ofrecemos soluciones tecnológicas integrales para transformar tu negocio
+              </p>
             </motion.div>
-          ))}
-        </div>
-      </div>
+          </div>
+        }
+        scrollingItems={[
+          {
+            id: "mobile",
+            stayOnTop: false,
+            content: (
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="glass rounded-2xl p-8 border-t-4 border-accent-cyan max-w-2xl mx-auto"
+                >
+                  <div className="text-6xl mb-6">📱</div>
+                  <h3 className="text-3xl font-bold mb-4 text-white">Aplicaciones Móviles</h3>
+                  <p className="text-gray-400 text-lg mb-6">Desarrollamos apps nativas e híbridas para iOS y Android</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["React Native", "Flutter", "Swift", "Kotlin"].map((f) => (
+                      <span key={f} className="text-xs px-3 py-1 rounded-full bg-accent-cyan/20 text-accent-cyan">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ),
+          },
+          {
+            id: "ia",
+            stayOnTop: false,
+            content: (
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="glass rounded-2xl p-8 border-t-4 border-accent-purple max-w-2xl mx-auto"
+                >
+                  <div className="text-6xl mb-6">🤖</div>
+                  <h3 className="text-3xl font-bold mb-4 text-white">IA Generativa</h3>
+                  <p className="text-gray-400 text-lg mb-6">Soluciones de inteligencia artificial avanzadas</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["GPT Integration", "LLMs", "Generación de contenido"].map((f) => (
+                      <span key={f} className="text-xs px-3 py-1 rounded-full bg-accent-purple/20 text-accent-purple">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ),
+          },
+          {
+            id: "agents",
+            stayOnTop: false,
+            content: (
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="glass rounded-2xl p-8 border-t-4 border-accent-pink max-w-2xl mx-auto"
+                >
+                  <div className="text-6xl mb-6">🧠</div>
+                  <h3 className="text-3xl font-bold mb-4 text-white">Agentes Inteligentes</h3>
+                  <p className="text-gray-400 text-lg mb-6">Agentes autonomousos que realizan tareas complejas</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Automación", "Machine Learning", "Integración APIs"].map((f) => (
+                      <span key={f} className="text-xs px-3 py-1 rounded-full bg-accent-pink/20 text-accent-pink">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ),
+          },
+          {
+            id: "chatbots",
+            stayOnTop: false,
+            content: (
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="glass rounded-2xl p-8 border-t-4 border-accent-yellow max-w-2xl mx-auto"
+                >
+                  <div className="text-6xl mb-6">💬</div>
+                  <h3 className="text-3xl font-bold mb-4 text-white">Chatbots</h3>
+                  <p className="text-gray-400 text-lg mb-6">Asistentes virtuales personalizados para atención al cliente 24/7</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["NLP", "Integración multi-canal", "Base de conocimientos"].map((f) => (
+                      <span key={f} className="text-xs px-3 py-1 rounded-full bg-accent-yellow/20 text-accent-yellow">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ),
+          },
+          {
+            id: "ecommerce",
+            stayOnTop: false,
+            content: (
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  className="glass rounded-2xl p-8 border-t-4 border-accent-cyan max-w-2xl mx-auto"
+                >
+                  <div className="text-6xl mb-6">🛒</div>
+                  <h3 className="text-3xl font-bold mb-4 text-white">Tiendas Virtuales</h3>
+                  <p className="text-gray-400 text-lg mb-6">E-commerce modernos, seguros y optimizados para maximizar conversiones</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Next.js", "Pasarelas de pago", "Inventario"].map((f) => (
+                      <span key={f} className="text-xs px-3 py-1 rounded-full bg-accent-cyan/20 text-accent-cyan">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ),
+          },
+        ]}
+      />
 
       <Float className="absolute top-20 right-10 w-32 h-32 bg-accent-cyan/10 rounded-full blur-3xl" amplitude={30} />
       <Float className="absolute bottom-20 left-10 w-48 h-48 bg-accent-purple/10 rounded-full blur-3xl" amplitude={40} duration={8} />
     </section>
-  );
-}
-
-function ServiceCard({ service }: { service: typeof services[0] }) {
-  return (
-    <ScaleOnScroll
-      scaleRange={[1, 1.05]}
-      threshold={0.3}
-      className={`h-full`}
-    >
-      <div className={`glass rounded-2xl p-8 h-full border-t-4 ${
-        service.color === 'cyan' ? 'border-accent-cyan' :
-        service.color === 'purple' ? 'border-accent-purple' :
-        service.color === 'pink' ? 'border-accent-pink' :
-        'border-accent-yellow'
-      }`}>
-        <div className="text-5xl mb-6">{service.icon}</div>
-        <h3 className="text-2xl font-bold mb-4 text-white">{service.title}</h3>
-        <p className="text-gray-400 mb-6">{service.description}</p>
-        <div className="flex flex-wrap gap-2">
-          {service.features.map((feature) => (
-            <span
-              key={feature}
-              className={`text-xs px-3 py-1 rounded-full ${
-                service.color === 'cyan' ? 'bg-accent-cyan/20 text-accent-cyan' :
-                service.color === 'purple' ? 'bg-accent-purple/20 text-accent-purple' :
-                service.color === 'pink' ? 'bg-accent-pink/20 text-accent-pink' :
-                'bg-accent-yellow/20 text-accent-yellow'
-              }`}
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
-      </div>
-    </ScaleOnScroll>
   );
 }

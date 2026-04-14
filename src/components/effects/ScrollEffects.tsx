@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -152,6 +152,94 @@ export function AnimatedGradient({ className = "" }: AnimatedGradientProps) {
           ease: "linear",
         }}
       />
+    </div>
+  );
+}
+
+interface ClickScrollAnimationProps {
+  fixedContent: React.ReactNode;
+  scrollingItems: { id: string; content: React.ReactNode; stayOnTop?: boolean }[];
+  height?: number;
+  className?: string;
+}
+
+export function ClickScrollAnimation({
+  fixedContent,
+  scrollingItems,
+  height = 300,
+  className = "",
+}: ClickScrollAnimationProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPinned, setIsPinned] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const containerTop = rect.top;
+      
+      if (containerTop <= 0 && !isPinned) {
+        setIsPinned(true);
+      }
+      
+      if (isPinned) {
+        const scrollDistance = Math.abs(containerTop);
+        const itemHeight = window.innerHeight * 0.35;
+        const newIndex = Math.min(
+          Math.floor(scrollDistance / itemHeight),
+          scrollingItems.length - 1
+        );
+        
+        if (newIndex !== currentIndex) {
+          setCurrentIndex(newIndex);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isPinned, currentIndex, scrollingItems.length]);
+
+  const containerHeight = height + scrollingItems.length * 40;
+
+  return (
+    <div
+      ref={containerRef}
+      className={`relative ${className}`}
+      style={{ height: `${containerHeight}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-y-auto">
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-shrink-0">
+            {fixedContent}
+          </div>
+
+          <div className="flex-grow relative flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              {scrollingItems.map((item, index) => {
+                const isActive = index === currentIndex;
+                
+                if (!isActive) return null;
+                
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="absolute left-0 right-0 px-8 w-full max-w-4xl mx-auto"
+                  >
+                    {item.content}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

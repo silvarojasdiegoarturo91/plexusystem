@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Float } from "@/components/effects/ScrollEffects";
 
 const navItems = [
@@ -32,54 +33,58 @@ export function Navbar() {
   return (
     <motion.nav
       style={{ background }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg"
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/5"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <motion.a
             href="#inicio"
-            className="text-2xl font-bold gradient-text"
-            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
           >
-            PlexuSystem
+            <div className="relative w-14 h-14 flex-shrink-0">
+              <Image
+                src="/logo.png"
+                alt="PlexuSystem"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-xl font-bold gradient-text hidden sm:block">
+              PlexuSystem
+            </span>
           </motion.a>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <motion.a
                 key={item.label}
                 href={item.href}
-                className="text-gray-300 hover:text-accent-cyan transition-colors relative"
+                className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg hover:bg-white/5"
                 whileHover={{ y: -2 }}
               >
                 {item.label}
-                <motion.span
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan"
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.2 }}
-                />
               </motion.a>
             ))}
           </div>
 
           <motion.a
             href="#contacto"
-            className="hidden md:block px-6 py-2 bg-gradient-to-r from-accent-cyan to-primary-500 text-dark font-bold rounded-full"
+            className="hidden md:block px-5 py-2.5 bg-gradient-to-r from-accent-cyan to-accent-purple text-dark font-semibold rounded-full text-sm shadow-lg shadow-accent-cyan/20"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Cotizar
           </motion.a>
 
-          <button className="md:hidden text-white">
+          <button className="md:hidden text-white p-2">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </div>
-
-      <Float className="absolute -bottom-20 left-0 w-32 h-32 bg-accent-cyan/5 rounded-full blur-2xl" amplitude={10} />
     </motion.nav>
   );
 }
