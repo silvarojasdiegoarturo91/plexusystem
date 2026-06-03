@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { VisitTracker } from "@/components/VisitTracker";
 
@@ -66,6 +67,19 @@ export default function RootLayout({
     <html lang="es">
       <body className="antialiased">
         <VisitTracker />
+        <Script
+          id="fluxbot-widget"
+          src="https://cdn.fluxbotia.com/chat-widget.v1.js"
+          strategy="afterInteractive"
+          data-fluxbot-widget="true"
+          data-token="fbw_live_502bac26cdf43afc2a29c5211edd33f3"
+          data-endpoint="https://api.fluxbotia.com"
+          data-api-version="v1"
+          data-position="bottom-right"
+          data-primary-color="#2563eb"
+          data-greeting="Hola, soy el asistente IA de Diego. ¿En qué puedo ayudarte?"
+          data-locale="es"
+        />
         {children}
       </body>
     </html>
