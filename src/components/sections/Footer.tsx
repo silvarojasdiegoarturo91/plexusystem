@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const footerLinks = {
   servicios: [
@@ -25,10 +26,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "LinkedIn", icon: "💼" },
-  { name: "Twitter", icon: "🐦" },
-  { name: "GitHub", icon: "💻" },
-  { name: "Instagram", icon: "📸" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/" },
+  { name: "Twitter", icon: Twitter, href: "https://twitter.com/" },
+  { name: "GitHub", icon: Github, href: "https://github.com/" },
+  { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/" },
 ];
 
 export function Footer() {
@@ -57,11 +58,14 @@ export function Footer() {
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.name}
-                  href="#"
-                  className="w-10 h-10 glass rounded-full flex items-center justify-center text-xl hover:bg-accent-cyan/20 transition-colors"
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Visitar PlexuSystem en ${social.name}`}
+                  className="flex h-10 w-10 items-center justify-center rounded-full glass text-gray-300 transition-colors hover:bg-accent-cyan/20 hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
                   whileHover={{ y: -3 }}
                 >
-                  {social.icon}
+                  <social.icon aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
                 </motion.a>
               ))}
             </div>
@@ -112,7 +116,7 @@ export function Footer() {
             © {new Date().getFullYear()} PlexuSystem. Todos los derechos reservados.
           </p>
           <p className="text-gray-500 text-sm">
-            Hecho con ❤️ y código ☕
+            Hecho con intención y código.
           </p>
         </div>
       </div>
