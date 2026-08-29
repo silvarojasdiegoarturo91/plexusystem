@@ -83,7 +83,10 @@ export function ContactSection() {
             className="glass rounded-3xl p-8 md:p-12 lg:mt-10"
           >
             {status && (
-              <div className={`mb-6 p-4 rounded-xl ${
+              <div
+                role={status.type === 'error' ? 'alert' : 'status'}
+                aria-live="polite"
+                className={`mb-6 rounded-xl border p-4 ${
                 status.type === 'success' 
                   ? 'bg-green-500/20 border border-green-500/30 text-green-300' 
                   : 'bg-red-500/20 border border-red-500/30 text-red-300'
@@ -95,51 +98,58 @@ export function ContactSection() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">Nombre</label>
+                  <label htmlFor="contact-name" className="mb-2 block text-sm text-gray-400">Nombre</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
+                    autoComplete="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-accent-cyan focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors focus:border-accent-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
                     placeholder="Tu nombre"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">Email</label>
+                  <label htmlFor="contact-email" className="mb-2 block text-sm text-gray-400">Email</label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-accent-cyan focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors focus:border-accent-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
                     placeholder="tu@email.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Empresa</label>
+                <label htmlFor="contact-company" className="mb-2 block text-sm text-gray-400">Empresa</label>
                 <input
+                  id="contact-company"
                   type="text"
                   name="company"
+                  autoComplete="organization"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-accent-cyan focus:outline-none transition-colors"
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors focus:border-accent-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
                   placeholder="Nombre de tu empresa"
                 />
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Mensaje</label>
+                <label htmlFor="contact-message" className="mb-2 block text-sm text-gray-400">Mensaje</label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-accent-cyan focus:outline-none transition-colors h-32 resize-none"
+                  className="h-32 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors focus:border-accent-cyan focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70"
                   placeholder="Cuéntanos sobre tu proyecto..."
                 />
               </div>
