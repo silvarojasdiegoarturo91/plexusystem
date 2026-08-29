@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Float, ScaleOnScroll } from "@/components/effects/ScrollEffects";
 import { Button, Heading, Paragraph } from "@/components/ui/UIComponents";
 
 export function HeroSection() {
@@ -12,22 +11,26 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.55], [0, -120]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.65], [1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.65], [1, 1.08]);
+  const nextPanelOpacity = useTransform(scrollYProgress, [0.35, 0.55, 0.8], [0, 1, 1]);
+  const nextPanelY = useTransform(scrollYProgress, [0.35, 0.55], [80, 0]);
 
   return (
     <section
       ref={ref}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+      className="relative min-h-[220vh] overflow-clip"
     >
-      <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-cyan/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-purple/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent-pink/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-      </motion.div>
+      <div className="sticky top-0 flex min-h-screen items-center justify-center overflow-hidden pt-20">
+        <motion.div style={{ y, opacity, scale }} className="absolute inset-0 z-0">
+          <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-accent-cyan/20 blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-accent-purple/20 blur-3xl" />
+          <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-pink/20 blur-3xl" />
+        </motion.div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <motion.div style={{ y, opacity }} className="container relative z-10 mx-auto px-4">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -76,30 +79,35 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <FloatingElements />
-          </motion.div>
-        </div>
-      </div>
+            <motion.div style={{ scale }} className="relative">
+              <FloatingElements scrollYProgress={scrollYProgress} />
+            </motion.div>
+          </div>
+        </motion.div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        <div className="w-6 h-10 border-2 border-accent-cyan rounded-full flex justify-center pt-2">
-          <motion.div
-            className="w-1 h-2 bg-accent-cyan rounded-full"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          />
-        </div>
-      </motion.div>
+        <motion.div
+          style={{ opacity: nextPanelOpacity, y: nextPanelY }}
+          className="pointer-events-none absolute inset-x-0 top-1/2 z-20 mx-auto max-w-3xl -translate-y-1/2 px-6 text-center"
+        >
+          <p className="mb-4 text-sm font-medium uppercase tracking-[0.35em] text-accent-cyan">
+            De la idea a la experiencia
+          </p>
+          <h2 className="text-4xl font-bold leading-tight text-white md:text-6xl">
+            Tecnología que se mueve al ritmo de tu negocio.
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-400">
+            Desplazate para descubrir cómo convertimos problemas complejos en productos digitales claros, rápidos y memorables.
+          </p>
+        </motion.div>
+
+        <motion.div
+          style={{ opacity: useTransform(scrollYProgress, [0.1, 0.3], [1, 0]) }}
+          className="absolute bottom-10 left-1/2 z-20 -translate-x-1/2 text-center text-xs uppercase tracking-[0.3em] text-gray-400"
+        >
+          <span>Desplazate para comenzar</span>
+          <span className="mx-auto mt-3 block h-10 w-px bg-gradient-to-b from-accent-cyan to-transparent" />
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -120,53 +128,43 @@ function StatItem({ number, suffix, label }: { number: number; suffix: string; l
   );
 }
 
-function FloatingElements() {
+function FloatingElements({ scrollYProgress }: { scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const phoneY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const phoneRotate = useTransform(scrollYProgress, [0, 1], [-8, 8]);
+  const aiY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const chatX = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const cartX = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const ringRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const ringReverseRotate = useTransform(ringRotate, (value) => -value * 0.7);
+
   return (
     <div className="relative w-full h-[500px]">
-      <Float className="absolute top-0 left-1/4" amplitude={20} duration={4}>
-        <ScaleOnScroll scaleRange={[1, 1.2]} threshold={0.2}>
-          <div className="w-32 h-32 glass rounded-2xl flex items-center justify-center text-5xl border-accent-cyan/30">
-            📱
-          </div>
-        </ScaleOnScroll>
-      </Float>
+      <motion.div style={{ y: phoneY, rotate: phoneRotate }} className="absolute left-1/4 top-0">
+        <div className="glass flex h-32 w-32 items-center justify-center rounded-2xl border-accent-cyan/30 text-5xl">📱</div>
+      </motion.div>
 
-      <Float className="absolute top-1/3 right-0" amplitude={25} duration={5}>
-        <ScaleOnScroll scaleRange={[1, 1.15]} threshold={0.2}>
-          <div className="w-28 h-28 glass rounded-2xl flex items-center justify-center text-4xl border-accent-purple/30">
-            🤖
-          </div>
-        </ScaleOnScroll>
-      </Float>
+      <motion.div style={{ y: aiY }} className="absolute right-0 top-1/3">
+        <div className="glass flex h-28 w-28 items-center justify-center rounded-2xl border-accent-purple/30 text-4xl">🤖</div>
+      </motion.div>
 
-      <Float className="absolute bottom-1/4 left-0" amplitude={30} duration={6}>
-        <ScaleOnScroll scaleRange={[1, 1.25]} threshold={0.2}>
-          <div className="w-36 h-36 glass rounded-2xl flex items-center justify-center text-5xl border-accent-pink/30">
-            💬
-          </div>
-        </ScaleOnScroll>
-      </Float>
+      <motion.div style={{ x: chatX }} className="absolute bottom-1/4 left-0">
+        <div className="glass flex h-36 w-36 items-center justify-center rounded-2xl border-accent-pink/30 text-5xl">💬</div>
+      </motion.div>
 
-      <Float className="absolute bottom-0 right-1/4" amplitude={15} duration={4.5}>
-        <ScaleOnScroll scaleRange={[1, 1.1]} threshold={0.2}>
-          <div className="w-24 h-24 glass rounded-2xl flex items-center justify-center text-3xl border-accent-yellow/30">
-            🛒
-          </div>
-        </ScaleOnScroll>
-      </Float>
+      <motion.div style={{ x: cartX }} className="absolute bottom-0 right-1/4">
+        <div className="glass flex h-24 w-24 items-center justify-center rounded-2xl border-accent-yellow/30 text-3xl">🛒</div>
+      </motion.div>
 
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        style={{ rotate: ringRotate }}
       >
         <div className="w-64 h-64 border border-dashed border-accent-cyan/30 rounded-full" />
       </motion.div>
 
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        style={{ rotate: ringReverseRotate }}
       >
         <div className="w-48 h-48 border border-dashed border-accent-purple/30 rounded-full" />
       </motion.div>
