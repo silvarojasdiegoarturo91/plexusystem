@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, useTransform, useScroll, useMotionValueEvent, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 
 interface ScrollRevealProps {
@@ -171,10 +171,12 @@ export function ClickScrollAnimation({
 }: ClickScrollAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
+  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     const nextIndex = Math.min(
@@ -195,8 +197,22 @@ export function ClickScrollAnimation({
       className={`relative ${className}`}
       style={{ height: `${containerHeight}vh` }}
     >
-      <div className="sticky top-0 h-screen overflow-y-auto">
+      <div className="sticky top-0 h-screen overflow-hidden">
         <div className="min-h-screen flex flex-col">
+          <div aria-hidden="true" className="absolute bottom-10 left-8 top-1/2 z-20 hidden w-px -translate-y-1/2 bg-white/10 md:block">
+            <motion.div
+              className="w-full origin-top bg-accent-cyan"
+              style={{ height: "100%", scaleY: progressScale }}
+            />
+            <div className="absolute -left-1 top-0 h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_14px_rgba(0,245,212,0.9)]" />
+            <div className="absolute -left-1 bottom-0 h-2 w-2 rounded-full bg-white/30" />
+          </div>
+
+          <div className="absolute right-8 top-8 z-20 hidden font-mono text-xs text-white/40 md:block">
+            <span className="text-accent-cyan">{String(currentIndex + 1).padStart(2, "0")}</span>
+            <span> / {String(scrollingItems.length).padStart(2, "0")}</span>
+          </div>
+
           <div className="flex-shrink-0">
             {fixedContent}
           </div>
@@ -214,8 +230,8 @@ export function ClickScrollAnimation({
                     initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, y: -50 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="absolute left-0 right-0 px-8 w-full max-w-4xl mx-auto"
+                    transition={{ duration: reduceMotion ? 0 : 0.4, ease: "easeOut" }}
+                    className="absolute left-0 right-0 mx-auto w-full max-w-4xl px-8 md:px-12"
                   >
                     {item.content}
                   </motion.div>
