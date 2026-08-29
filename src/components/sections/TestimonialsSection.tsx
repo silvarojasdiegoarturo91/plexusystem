@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BriefcaseBusiness, ChartNoAxesCombined, Headphones, Star } from "lucide-react";
 import { ScrollReveal, ScaleOnScroll } from "@/components/effects/ScrollEffects";
 import { Heading, Paragraph, Card, Badge } from "@/components/ui/UIComponents";
 
@@ -9,21 +10,21 @@ const testimonials = [
     name: "Carlos Mendoza",
     role: "CEO, TechStart",
     content: "El equipo de PlexuSystem transformó nuestra visión en realidad. Su profesionalismo y conocimiento en IA superaron todas las expectativas.",
-    avatar: "👨‍💼",
+    avatar: BriefcaseBusiness,
     rating: 5,
   },
   {
     name: "María González",
     role: "Directora, E-commerce Pro",
     content: "Nuestra tienda virtual aumentó un 300% las ventas después de trabajar con ellos. El diseño y la funcionalidad son excepcionales.",
-    avatar: "👩‍💼",
+    avatar: ChartNoAxesCombined,
     rating: 5,
   },
   {
     name: "Roberto Silva",
     role: "CTO, InnovaTech",
     content: "Los chatbots que desarrollaron automatizaron nuestro soporte al cliente. Excelente implementación y seguimiento.",
-    avatar: "👨‍💻",
+    avatar: Headphones,
     rating: 5,
   },
 ];
@@ -80,10 +81,10 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
           <span>Señal verificada / 0{index + 1}</span>
           <span className="text-accent-cyan">● conectada</span>
         </div>
-        <div className="mb-4 text-5xl">{testimonial.avatar}</div>
+        <div className="mb-4 text-accent-cyan"><testimonial.avatar aria-hidden="true" className="h-12 w-12" strokeWidth={1.5} /></div>
         <div className="flex gap-1 mb-4">
           {[...Array(testimonial.rating)].map((_, i) => (
-            <span key={i} className="text-accent-yellow">⭐</span>
+            <Star key={i} aria-hidden="true" className="h-4 w-4 fill-accent-yellow text-accent-yellow" />
           ))}
         </div>
         <Paragraph className={`${index === 0 ? "text-xl" : "text-base"} mb-6 italic`}>

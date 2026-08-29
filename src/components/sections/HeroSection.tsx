@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Bot, MessageCircle, ShoppingCart, Smartphone } from "lucide-react";
 import { Button, Heading, Paragraph } from "@/components/ui/UIComponents";
 
 export function HeroSection() {
@@ -42,8 +43,8 @@ export function HeroSection() {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="px-4 py-2 bg-accent-cyan/20 text-accent-cyan rounded-full text-sm font-medium border border-accent-cyan/30">
-                🚀 Transformación Digital
+              <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/20 px-4 py-2 text-sm font-medium text-accent-cyan">
+                <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent-cyan shadow-[0_0_10px_currentColor]" />Transformación Digital</span>
               </span>
             </motion.div>
 
@@ -140,19 +141,19 @@ function FloatingElements({ scrollYProgress }: { scrollYProgress: ReturnType<typ
   return (
     <div className="relative w-full h-[500px]">
       <motion.div style={{ y: phoneY, rotate: phoneRotate }} className="absolute left-1/4 top-0">
-        <div className="glass flex h-32 w-32 items-center justify-center rounded-2xl border-accent-cyan/30 text-5xl">📱</div>
+        <div className="glass flex h-32 w-32 items-center justify-center rounded-2xl border-accent-cyan/30 text-accent-cyan"><Smartphone aria-hidden="true" className="h-12 w-12" /></div>
       </motion.div>
 
       <motion.div style={{ y: aiY }} className="absolute right-0 top-1/3">
-        <div className="glass flex h-28 w-28 items-center justify-center rounded-2xl border-accent-purple/30 text-4xl">🤖</div>
+        <div className="glass flex h-28 w-28 items-center justify-center rounded-2xl border-accent-purple/30 text-accent-purple"><Bot aria-hidden="true" className="h-10 w-10" /></div>
       </motion.div>
 
       <motion.div style={{ x: chatX }} className="absolute bottom-1/4 left-0">
-        <div className="glass flex h-36 w-36 items-center justify-center rounded-2xl border-accent-pink/30 text-5xl">💬</div>
+        <div className="glass flex h-36 w-36 items-center justify-center rounded-2xl border-accent-pink/30 text-accent-pink"><MessageCircle aria-hidden="true" className="h-12 w-12" /></div>
       </motion.div>
 
       <motion.div style={{ x: cartX }} className="absolute bottom-0 right-1/4">
-        <div className="glass flex h-24 w-24 items-center justify-center rounded-2xl border-accent-yellow/30 text-3xl">🛒</div>
+        <div className="glass flex h-24 w-24 items-center justify-center rounded-2xl border-accent-yellow/30 text-accent-yellow"><ShoppingCart aria-hidden="true" className="h-8 w-8" /></div>
       </motion.div>
 
       <motion.div

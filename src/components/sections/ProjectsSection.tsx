@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BarChart3, GraduationCap, Headphones, HeartPulse, ShoppingCart, Truck } from "lucide-react";
 import { ScrollReveal, ScaleOnScroll } from "@/components/effects/ScrollEffects";
 import { Heading, Paragraph, Badge, Card } from "@/components/ui/UIComponents";
 
@@ -9,7 +10,7 @@ const projects = [
     title: "TechEcommerce Pro",
     client: "TechCorp",
     description: "Plataforma de e-commerce completa con gestión de inventario, pasarelas de pago y panel de administración.",
-    image: "🛒",
+    image: ShoppingCart,
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     color: "cyan" as const,
     year: "2024",
@@ -18,7 +19,7 @@ const projects = [
     title: "IA Customer Support",
     "client": "ServiceHub",
     description: "Sistema de atención al cliente potenciado con IA que maneja el 80% de consultas automáticamente.",
-    image: "🎧",
+    image: Headphones,
     tags: ["Python", "GPT-4", "Twilio"],
     color: "purple" as const,
     year: "2024",
@@ -27,7 +28,7 @@ const projects = [
     title: "HealthTrack App",
     client: "MediCare Plus",
     description: "Aplicación móvil para seguimiento de salud con sincronización de dispositivos wearables.",
-    image: "🏥",
+    image: HeartPulse,
     tags: ["React Native", "Firebase", "AWS"],
     color: "pink" as const,
     year: "2023",
@@ -36,7 +37,7 @@ const projects = [
     title: "Finance Dashboard",
     client: "Inversiones Global",
     description: "Dashboard en tiempo real para gestión de inversiones con análisis predictivo de mercados.",
-    image: "📊",
+    image: BarChart3,
     tags: ["Vue.js", "D3.js", "Python"],
     color: "yellow" as const,
     year: "2023",
@@ -45,7 +46,7 @@ const projects = [
     title: "Logistics Platform",
     client: "Transporte Express",
     description: "Sistema de gestión de flotas con tracking GPS en tiempo real y optimización de rutas.",
-    image: "🚚",
+    image: Truck,
     tags: ["React", "Google Maps API", "Node.js"],
     color: "cyan" as const,
     year: "2023",
@@ -54,7 +55,7 @@ const projects = [
     title: "EduLearn Platform",
     client: "Academia Virtual",
     description: "Plataforma de educación online con clases en vivo, cursos grabados y certificación digital.",
-    image: "🎓",
+    image: GraduationCap,
     tags: ["Next.js", "WebRTC", "MongoDB"],
     color: "purple" as const,
     year: "2024",
@@ -158,7 +159,7 @@ function ProjectCard({ project, index, featured }: { project: typeof projects[0]
         <div className={`relative mb-8 overflow-hidden rounded-xl border border-white/10 ${featured ? "h-56" : "h-40"} ${colors.bg}`}>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.16),transparent_32%),linear-gradient(135deg,transparent,rgba(0,0,0,0.25))]" />
           <span className={`absolute left-5 top-5 font-mono text-xs ${colors.text}`}>0{index + 1} / {project.year}</span>
-          <span className="absolute bottom-4 right-5 text-6xl grayscale transition-all duration-300 group-hover:scale-110 group-hover:grayscale-0">{project.image}</span>
+          <span className="absolute bottom-4 right-5 text-white/80 transition-all duration-300 group-hover:scale-110 group-hover:text-white"><project.image aria-hidden="true" className="h-14 w-14" strokeWidth={1.25} /></span>
           <span className="absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">Coordenada activa</span>
         </div>
         

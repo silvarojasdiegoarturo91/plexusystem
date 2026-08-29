@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { ScrollReveal } from "@/components/effects/ScrollEffects";
 import { Heading, Paragraph, Button, Badge } from "@/components/ui/UIComponents";
 import { useState } from "react";
@@ -150,7 +151,10 @@ export function ContactSection() {
                   type="submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Enviando...' : 'Enviar Mensaje 🚀'}
+                  <span className="inline-flex items-center gap-2">
+                    {isLoading ? 'Enviando...' : 'Enviar Mensaje'}
+                    {!isLoading && <ArrowUpRight aria-hidden="true" className="h-5 w-5" />}
+                  </span>
                 </Button>
               </div>
             </form>

@@ -1,46 +1,47 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Bot, BrainCircuit, Cloud, MessageCircle, ShoppingCart, Smartphone } from "lucide-react";
 import { ScaleOnScroll, Float, ClickScrollAnimation } from "@/components/effects/ScrollEffects";
 
 const services = [
   {
-    icon: "📱",
+    icon: Smartphone,
     title: "Aplicaciones Móviles",
     description: "Desarrollamos apps nativas e híbridas para iOS y Android con las últimas tecnologías.",
     color: "cyan" as const,
     features: ["React Native", "Flutter", "Swift", "Kotlin"],
   },
   {
-    icon: "🤖",
+    icon: Bot,
     title: "IA Generativa",
     description: "Soluciones de inteligencia artificial avanzadas para automatizar y potenciar tu negocio.",
     color: "purple" as const,
     features: ["GPT Integration", "LLMs", "Generación de contenido", "Análisis de datos"],
   },
   {
-    icon: "🧠",
+    icon: BrainCircuit,
     title: "Agentes Inteligentes",
     description: "Agentes autonomousos que realizan tareas complejas automáticamente.",
     color: "pink" as const,
     features: ["Automación", "Tomas de decisiones", "Integración APIs", "Machine Learning"],
   },
   {
-    icon: "💬",
+    icon: MessageCircle,
     title: "Chatbots",
     description: "Asistentes virtuales personalizados para atención al cliente 24/7.",
     color: "yellow" as const,
     features: ["NLP", "Integración multi-canal", "Base de conocimientos", "Analytics"],
   },
   {
-    icon: "🛒",
+    icon: ShoppingCart,
     title: "Tiendas Virtuales",
     description: "E-commerce modernos, seguros y optimizados para maximizar conversiones.",
     color: "cyan" as const,
     features: ["Next.js", "Pasarelas de pago", "Inventario", "SEO optimizado"],
   },
   {
-    icon: "☁️",
+    icon: Cloud,
     title: "Soluciones Cloud",
     description: "Infraestructura escalable y segura en la nube para tu empresa.",
     color: "purple" as const,
@@ -81,7 +82,7 @@ export function ServicesSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   className="glass rounded-2xl p-8 border-t-4 border-accent-cyan max-w-2xl mx-auto"
                 >
-                  <div className="text-6xl mb-6">📱</div>
+                  <Smartphone aria-hidden="true" className="mb-6 h-14 w-14 text-accent-cyan" strokeWidth={1.5} />
                   <h3 className="text-3xl font-bold mb-4 text-white">Aplicaciones Móviles</h3>
                   <p className="text-gray-400 text-lg mb-6">Desarrollamos apps nativas e híbridas para iOS y Android</p>
                   <div className="flex flex-wrap gap-2">
@@ -105,7 +106,7 @@ export function ServicesSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   className="glass rounded-2xl p-8 border-t-4 border-accent-purple max-w-2xl mx-auto"
                 >
-                  <div className="text-6xl mb-6">🤖</div>
+                  <Bot aria-hidden="true" className="mb-6 h-14 w-14 text-accent-purple" strokeWidth={1.5} />
                   <h3 className="text-3xl font-bold mb-4 text-white">IA Generativa</h3>
                   <p className="text-gray-400 text-lg mb-6">Soluciones de inteligencia artificial avanzadas</p>
                   <div className="flex flex-wrap gap-2">
@@ -129,7 +130,7 @@ export function ServicesSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   className="glass rounded-2xl p-8 border-t-4 border-accent-pink max-w-2xl mx-auto"
                 >
-                  <div className="text-6xl mb-6">🧠</div>
+                  <BrainCircuit aria-hidden="true" className="mb-6 h-14 w-14 text-accent-pink" strokeWidth={1.5} />
                   <h3 className="text-3xl font-bold mb-4 text-white">Agentes Inteligentes</h3>
                   <p className="text-gray-400 text-lg mb-6">Agentes autonomousos que realizan tareas complejas</p>
                   <div className="flex flex-wrap gap-2">
@@ -153,7 +154,7 @@ export function ServicesSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   className="glass rounded-2xl p-8 border-t-4 border-accent-yellow max-w-2xl mx-auto"
                 >
-                  <div className="text-6xl mb-6">💬</div>
+                  <MessageCircle aria-hidden="true" className="mb-6 h-14 w-14 text-accent-yellow" strokeWidth={1.5} />
                   <h3 className="text-3xl font-bold mb-4 text-white">Chatbots</h3>
                   <p className="text-gray-400 text-lg mb-6">Asistentes virtuales personalizados para atención al cliente 24/7</p>
                   <div className="flex flex-wrap gap-2">
@@ -177,7 +178,7 @@ export function ServicesSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   className="glass rounded-2xl p-8 border-t-4 border-accent-cyan max-w-2xl mx-auto"
                 >
-                  <div className="text-6xl mb-6">🛒</div>
+                  <ShoppingCart aria-hidden="true" className="mb-6 h-14 w-14 text-accent-cyan" strokeWidth={1.5} />
                   <h3 className="text-3xl font-bold mb-4 text-white">Tiendas Virtuales</h3>
                   <p className="text-gray-400 text-lg mb-6">E-commerce modernos, seguros y optimizados para maximizar conversiones</p>
                   <div className="flex flex-wrap gap-2">

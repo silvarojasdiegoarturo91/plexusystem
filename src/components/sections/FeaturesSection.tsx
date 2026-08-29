@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link2, LifeBuoy, LockKeyhole, Palette, Ruler, Zap } from "lucide-react";
 import { ScrollReveal } from "@/components/effects/ScrollEffects";
 import { Heading, Paragraph, Badge } from "@/components/ui/UIComponents";
 
@@ -9,37 +10,37 @@ const features = [
   {
     title: "Diseño UI/UX",
     description: "Interfaces modernas e intuitivas que cautivan a tus usuarios",
-    icon: "🎨",
+    icon: Palette,
     color: "cyan",
   },
   {
     title: "Arquitectura Escalable",
     description: "Sistemas diseñados para crecer junto con tu negocio",
-    icon: "📐",
+    icon: Ruler,
     color: "purple",
   },
   {
     title: "Seguridad Avanzada",
     description: "Protección de datos con los estándares más altos",
-    icon: "🔒",
+    icon: LockKeyhole,
     color: "pink",
   },
   {
     title: "Performance Óptima",
     description: "Aplicaciones rápidas y eficientes en cualquier dispositivo",
-    icon: "⚡",
+    icon: Zap,
     color: "yellow",
   },
   {
     title: "Integración API",
     description: "Conexión fluida con servicios de terceros",
-    icon: "🔗",
+    icon: Link2,
     color: "cyan",
   },
   {
     title: "Soporte 24/7",
     description: "Equipo disponible para resolver cualquier incidencia",
-    icon: "🛟",
+    icon: LifeBuoy,
     color: "purple",
   },
 ];
@@ -116,8 +117,8 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
         <span>Capacidad / 0{index + 1}</span>
         <span className={iconColors[feature.color as keyof typeof iconColors]}>●</span>
       </div>
-      <div className={`mb-4 text-4xl ${iconColors[feature.color as keyof typeof iconColors]}`}>
-        {feature.icon}
+      <div className={`mb-4 ${iconColors[feature.color as keyof typeof iconColors]}`}>
+        <feature.icon aria-hidden="true" className="h-10 w-10" strokeWidth={1.5} />
       </div>
       <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
       <p className="text-gray-400">{feature.description}</p>
