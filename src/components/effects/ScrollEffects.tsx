@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -54,18 +54,18 @@ export function ParallaxScroll({
   direction = "vertical",
   className = "",
 }: ParallaxScrollProps) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const distance = useTransform(scrollYProgress, [0, 1], [-speed * 100, speed * 100]);
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      style={{
-        y: useTransform(
-          useMotionValue(0),
-          (value) => value * speed * 100
-        ),
-      }}
+      style={direction === "horizontal" ? { x: distance } : { y: distance }}
     >
       {children}
     </motion.div>
@@ -171,38 +171,23 @@ export function ClickScrollAnimation({
 }: ClickScrollAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPinned, setIsPinned] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const containerTop = rect.top;
-      
-      if (containerTop <= 0 && !isPinned) {
-        setIsPinned(true);
-      }
-      
-      if (isPinned) {
-        const scrollDistance = Math.abs(containerTop);
-        const itemHeight = window.innerHeight * 0.35;
-        const newIndex = Math.min(
-          Math.floor(scrollDistance / itemHeight),
-          scrollingItems.length - 1
-        );
-        
-        if (newIndex !== currentIndex) {
-          setCurrentIndex(newIndex);
-        }
-      }
-    };
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    const nextIndex = Math.min(
+      scrollingItems.length - 1,
+      Math.floor(progress * scrollingItems.length)
+    );
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isPinned, currentIndex, scrollingItems.length]);
+    setCurrentIndex((previousIndex) =>
+      previousIndex === nextIndex ? previousIndex : nextIndex
+    );
+  });
 
-  const containerHeight = height + scrollingItems.length * 40;
+  const containerHeight = Math.max(height, scrollingItems.length * 55);
 
   return (
     <div
