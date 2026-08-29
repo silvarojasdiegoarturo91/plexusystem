@@ -96,27 +96,33 @@ export function ProjectsSection() {
         <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-gradient-radial from-accent-purple/10 via-transparent to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <ScrollReveal direction="up" className="text-center mb-20">
-          <Badge color="purple" className="mb-4">Proyectos</Badge>
-          <Heading level={2} className="mb-6">
-            Casos de <span className="gradient-text">éxito</span>
-          </Heading>
-          <Paragraph size="lg" className="max-w-2xl mx-auto">
-            Solutions we've delivered to transform businesses across industries
-          </Paragraph>
-        </ScrollReveal>
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="mb-20 grid items-end gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+          <ScrollReveal direction="right">
+            <Badge color="purple" className="mb-4">Archivo de mundos</Badge>
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-white/40">Registro 02 / 06</p>
+          </ScrollReveal>
+          <ScrollReveal direction="up">
+            <Heading level={2} className="mb-6">
+              Casos de <span className="gradient-text">éxito</span>
+            </Heading>
+            <Paragraph size="lg" className="max-w-2xl">
+              Cada proyecto es una coordenada distinta: una decisión, un sistema y una experiencia que dejamos funcionando.
+            </Paragraph>
+          </ScrollReveal>
+        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-12">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
+              className={index === 0 ? "lg:col-span-7" : index === 1 ? "lg:col-span-5 lg:translate-y-20" : "lg:col-span-4"}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <ProjectCard project={project} />
+              <ProjectCard project={project} index={index} featured={index === 0} />
             </motion.div>
           ))}
         </div>
@@ -139,7 +145,7 @@ export function ProjectsSection() {
   );
 }
 
-function ProjectCard({ project }: { project: typeof projects[0] }) {
+function ProjectCard({ project, index, featured }: { project: typeof projects[0]; index: number; featured: boolean }) {
   const colors = colorClasses[project.color];
 
   return (
@@ -148,19 +154,19 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       threshold={0.3}
       className="h-full"
     >
-      <Card className="h-full" glow={project.color}>
-        <div className="relative">
-          <div className="text-6xl mb-4">{project.image}</div>
-          <span className={`absolute top-0 right-0 text-xs px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>
-            {project.year}
-          </span>
+      <Card className={`h-full ${featured ? "min-h-[460px]" : "min-h-[360px]"}`} glow={project.color}>
+        <div className={`relative mb-8 overflow-hidden rounded-xl border border-white/10 ${featured ? "h-56" : "h-40"} ${colors.bg}`}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.16),transparent_32%),linear-gradient(135deg,transparent,rgba(0,0,0,0.25))]" />
+          <span className={`absolute left-5 top-5 font-mono text-xs ${colors.text}`}>0{index + 1} / {project.year}</span>
+          <span className="absolute bottom-4 right-5 text-6xl grayscale transition-all duration-300 group-hover:scale-110 group-hover:grayscale-0">{project.image}</span>
+          <span className="absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">Coordenada activa</span>
         </div>
         
         <div className="mb-4">
           <span className={`text-xs ${colors.text}`}>Cliente: {project.client}</span>
         </div>
         
-        <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
+        <h3 className={`${featured ? "text-3xl" : "text-xl"} mb-3 font-bold text-white`}>{project.title}</h3>
         <p className="text-gray-400 text-sm mb-4">{project.description}</p>
         
         <div className="flex flex-wrap gap-2 mt-auto">
