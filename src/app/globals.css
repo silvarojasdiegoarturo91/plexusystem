@@ -73,6 +73,35 @@ body {
   mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
 }
 
+.scene-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  mix-blend-mode: screen;
+}
+
+.scene-origin::after {
+  background: radial-gradient(circle at 18% 72%, rgba(0, 245, 212, 0.16), transparent 28%);
+}
+
+.scene-intelligence::after {
+  background: linear-gradient(120deg, transparent 20%, rgba(155, 93, 229, 0.14), transparent 72%);
+}
+
+.scene-velocity::after {
+  background: repeating-linear-gradient(120deg, transparent 0 44px, rgba(241, 91, 181, 0.08) 45px 46px);
+}
+
+.scene-signal::after {
+  background: radial-gradient(circle at 82% 24%, rgba(250, 204, 21, 0.14), transparent 24%);
+}
+
+.scene-contact::after {
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 245, 212, 0.16), transparent 45%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
