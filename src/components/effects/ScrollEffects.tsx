@@ -20,6 +20,7 @@ export function ScrollReveal({
   threshold = 0.1,
   className = "",
 }: ScrollRevealProps) {
+  const reduceMotion = useReducedMotion();
   const directionVariants = {
     up: { hidden: { y: 50, opacity: 0 }, visible: { y: 0, opacity: 1 } },
     down: { hidden: { y: -50, opacity: 0 }, visible: { y: 0, opacity: 1 } },
@@ -29,10 +30,10 @@ export function ScrollReveal({
 
   return (
     <motion.div
-      initial="hidden"
+      initial={reduceMotion ? { opacity: 1, x: 0, y: 0 } : "hidden"}
       whileInView="visible"
       viewport={{ once: true, amount: threshold }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      transition={{ duration: reduceMotion ? 0 : duration, delay: reduceMotion ? 0 : delay, ease: "easeOut" }}
       variants={directionVariants[direction]}
       className={className}
     >
@@ -87,13 +88,18 @@ export function ScaleOnScroll({
   threshold = 0.5,
   className = "",
 }: ScaleOnScrollProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
       initial={{ scale: scaleRange[0], rotate: rotationRange[0] }}
-      whileInView={{ scale: scaleRange[1], rotate: rotationRange[1] }}
+      whileInView={{
+        scale: reduceMotion ? scaleRange[0] : scaleRange[1],
+        rotate: reduceMotion ? rotationRange[0] : rotationRange[1],
+      }}
       viewport={{ amount: threshold }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: reduceMotion ? 0 : 0.5, ease: "easeOut" }}
     >
       {children}
     </motion.div>
@@ -113,15 +119,15 @@ export function Float({
   duration = 6,
   className = "",
 }: FloatProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      animate={{
-        y: [-amplitude, amplitude, -amplitude],
-      }}
+      animate={{ y: reduceMotion ? 0 : [-amplitude, amplitude, -amplitude] }}
       transition={{
-        duration,
-        repeat: Infinity,
+        duration: reduceMotion ? 0 : duration,
+        repeat: reduceMotion ? 0 : Infinity,
         ease: "easeInOut",
       }}
     >
@@ -135,6 +141,8 @@ interface AnimatedGradientProps {
 }
 
 export function AnimatedGradient({ className = "" }: AnimatedGradientProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <motion.div
@@ -144,11 +152,13 @@ export function AnimatedGradient({ className = "" }: AnimatedGradientProps) {
           backgroundSize: "400% 400%",
         }}
         animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          backgroundPosition: reduceMotion
+            ? "50% 50%"
+            : ["0% 50%", "100% 50%", "0% 50%"],
         }}
         transition={{
-          duration: 8,
-          repeat: Infinity,
+          duration: reduceMotion ? 0 : 8,
+          repeat: reduceMotion ? 0 : Infinity,
           ease: "linear",
         }}
       />
