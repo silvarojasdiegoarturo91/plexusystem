@@ -52,7 +52,7 @@ export function SceneFrame({ children, id, index, eyebrow, tone }: SceneFramePro
   const portalOpacity = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 0.42, 0.24, 0]);
 
   return (
-    <div id={id} data-scene={tone} ref={ref} className={`scene-frame scene-${tone} relative min-h-[100svh] overflow-clip`}>
+    <div id={id} data-scene={tone} ref={ref} className={`scene-frame scene-${tone} relative min-h-[100svh] overflow-x-clip`}>
       <motion.div
         aria-hidden="true"
         className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${styles.wash}`}
