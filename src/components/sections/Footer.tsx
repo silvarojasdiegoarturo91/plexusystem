@@ -6,22 +6,23 @@ import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const footerLinks = {
   servicios: [
-    "Aplicaciones Móviles",
-    "IA Generativa",
-    "Agentes Inteligentes",
-    "Chatbots",
-    "Tiendas Virtuales",
+    { label: "Aplicaciones Móviles", href: "#servicios" },
+    { label: "IA Generativa", href: "#servicios" },
+    { label: "Agentes Inteligentes", href: "#servicios" },
+    { label: "Chatbots", href: "#servicios" },
+    { label: "Tiendas Virtuales", href: "#servicios" },
   ],
-  empresa: [
-    "Sobre Nosotros",
-    "Proyectos",
-    "Carreras",
-    "Blog",
+  recorrido: [
+    { label: "Inicio", href: "#inicio" },
+    { label: "Proyectos", href: "#proyectos" },
+    { label: "Capacidades", href: "#scene-features" },
+    { label: "Señales", href: "#scene-testimonials" },
+    { label: "Contacto", href: "#contacto" },
   ],
-  legal: [
-    "Términos",
-    "Privacidad",
-    "Cookies",
+  portal: [
+    { label: "Cómo trabajamos", href: "#scene-services" },
+    { label: "Resultados", href: "#scene-testimonials" },
+    { label: "Abrir un proyecto", href: "#contacto" },
   ],
 };
 
@@ -75,9 +76,9 @@ export function Footer() {
             <h4 className="font-bold text-white mb-4">Servicios</h4>
             <ul className="space-y-3">
               {footerLinks.servicios.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-accent-cyan transition-colors">
-                    {link}
+                <li key={link.label}>
+                  <a href={link.href} className="text-gray-400 transition-colors hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -85,12 +86,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-4">Empresa</h4>
+            <h4 className="font-bold text-white mb-4">Recorrido</h4>
             <ul className="space-y-3">
-              {footerLinks.empresa.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-accent-cyan transition-colors">
-                    {link}
+              {footerLinks.recorrido.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-gray-400 transition-colors hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -98,12 +99,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-4">Legal</h4>
+            <h4 className="font-bold text-white mb-4">Portal</h4>
             <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-accent-cyan transition-colors">
-                    {link}
+              {footerLinks.portal.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-gray-400 transition-colors hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan">
+                    {link.label}
                   </a>
                 </li>
               ))}
