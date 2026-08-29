@@ -81,6 +81,15 @@ export default function RootLayout({
           data-locale="es"
         />
         {children}
+        <Script
+          src="https://cdn.fluxbotia.com/chat-widget.v1.js"
+          data-token="fbw_live_291e8bd55b3f32b63ec90498648957bc"
+          data-endpoint="https://api.fluxbotia.com"
+          data-api-version="v1"
+          data-greeting="Hola! Soy el asistente de PlexuSystem. ¿En qué puedo ayudarte?"
+          data-locale="es"
+          async
+        />
       </body>
     </html>
   );
