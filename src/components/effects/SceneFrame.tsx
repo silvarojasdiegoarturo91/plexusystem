@@ -7,6 +7,7 @@ type SceneTone = "origin" | "intelligence" | "velocity" | "signal" | "contact";
 
 interface SceneFrameProps {
   children: React.ReactNode;
+  id: string;
   index: string;
   eyebrow: string;
   tone: SceneTone;
@@ -35,7 +36,7 @@ const toneStyles: Record<SceneTone, { wash: string; glow: string }> = {
   },
 };
 
-export function SceneFrame({ children, index, eyebrow, tone }: SceneFrameProps) {
+export function SceneFrame({ children, id, index, eyebrow, tone }: SceneFrameProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -51,7 +52,7 @@ export function SceneFrame({ children, index, eyebrow, tone }: SceneFrameProps) 
   const portalOpacity = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 0.42, 0.24, 0]);
 
   return (
-    <div ref={ref} className="scene-frame relative min-h-[100svh] overflow-clip">
+    <div id={id} data-scene={tone} ref={ref} className="scene-frame relative min-h-[100svh] overflow-clip">
       <motion.div
         aria-hidden="true"
         className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${styles.wash}`}

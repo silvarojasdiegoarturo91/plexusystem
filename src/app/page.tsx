@@ -7,28 +7,30 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Footer } from "@/components/sections/Footer";
 import { SceneFrame } from "@/components/effects/SceneFrame";
+import { SceneRail } from "@/components/effects/SceneRail";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-dark">
       <Navbar />
+      <SceneRail />
       <HeroSection />
-      <SceneFrame index="01" eyebrow="Sistema de origen" tone="origin">
+      <SceneFrame id="scene-services" index="01" eyebrow="Sistema de origen" tone="origin">
         <ServicesSection />
       </SceneFrame>
-      <SceneFrame index="02" eyebrow="Inteligencia aplicada" tone="intelligence">
+      <SceneFrame id="scene-projects" index="02" eyebrow="Inteligencia aplicada" tone="intelligence">
         <ProjectsSection />
       </SceneFrame>
-      <SceneFrame index="03" eyebrow="Velocidad de ejecución" tone="velocity">
+      <SceneFrame id="scene-features" index="03" eyebrow="Velocidad de ejecución" tone="velocity">
         <FeaturesSection />
       </SceneFrame>
-      <SceneFrame index="04" eyebrow="Señales del futuro" tone="signal">
+      <SceneFrame id="scene-testimonials" index="04" eyebrow="Señales del futuro" tone="signal">
         <TestimonialsSection />
       </SceneFrame>
-      <SceneFrame index="05" eyebrow="Abrir un portal" tone="contact">
+      <SceneFrame id="scene-contact" index="05" eyebrow="Abrir un portal" tone="contact">
         <ContactSection />
       </SceneFrame>
-      <SceneFrame index="06" eyebrow="Continuar el viaje" tone="origin">
+      <SceneFrame id="scene-footer" index="06" eyebrow="Continuar el viaje" tone="origin">
         <Footer />
       </SceneFrame>
     </main>
