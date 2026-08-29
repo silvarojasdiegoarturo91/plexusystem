@@ -4,10 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Float, ScaleOnScroll } from "@/components/effects/ScrollEffects";
 import { Button, Heading, Paragraph } from "@/components/ui/UIComponents";
-import { TextReveal } from "@/components/effects/TextReveal";
-import { MagneticButton } from "@/components/effects/MagneticButton";
-import { ParticleField } from "@/components/effects/ParticleField";
-import { AnimatedCounter } from "@/components/effects/AnimatedCounter";
 
 export function HeroSection() {
   const ref = useRef(null);
@@ -24,9 +20,6 @@ export function HeroSection() {
       ref={ref}
       className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
     >
-      {/* Particle field background */}
-      <ParticleField count={50} color="#00f5d4" speed={0.2} maxSize={2} />
-
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-cyan/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-purple/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
@@ -51,15 +44,9 @@ export function HeroSection() {
               </span>
             </motion.div>
 
-            {/* Hero heading with TextReveal */}
             <Heading level={1} gradient className="mb-6 leading-tight">
-              <TextReveal
-                text="Construimos el futuro con código inteligente"
-                splitBy="line"
-                staggerDelay={0.15}
-                yOffset={40}
-                gradient={false}
-              />
+              Construimos el futuro con{' '}
+              <span className="block">código inteligente</span>
             </Heading>
 
             <Paragraph size="lg" className="mb-8 max-w-xl">
@@ -69,24 +56,23 @@ export function HeroSection() {
             </Paragraph>
 
             <div className="flex flex-wrap gap-4">
-              <MagneticButton className="px-8 py-4 bg-accent-cyan text-dark font-bold rounded-xl text-lg transition-shadow hover:shadow-[0_0_30px_rgba(0,245,212,0.4)]">
+              <Button variant="primary" size="lg">
                 Ver Servicios
-              </MagneticButton>
-              <MagneticButton className="px-8 py-4 border-2 border-white/20 text-white font-bold rounded-xl text-lg hover:border-accent-cyan/50 hover:text-accent-cyan transition-colors">
+              </Button>
+              <Button variant="outline" size="lg">
                 Contactar
-              </MagneticButton>
+              </Button>
             </div>
 
-            {/* Stats with AnimatedCounter */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
               className="mt-12 flex gap-8"
             >
-              <AnimatedCounter target={150} suffix="+" label="Proyectos" />
-              <AnimatedCounter target={50} suffix="+" label="Clientes" />
-              <AnimatedCounter target={5} suffix="+" label="Años" />
+              <StatItem number={150} suffix="+" label="Proyectos" />
+              <StatItem number={50} suffix="+" label="Clientes" />
+              <StatItem number={5} suffix="+" label="Años" />
             </motion.div>
           </motion.div>
 
@@ -115,6 +101,22 @@ export function HeroSection() {
         </div>
       </motion.div>
     </section>
+  );
+}
+
+function StatItem({ number, suffix, label }: { number: number; suffix: string; label: string }) {
+  return (
+    <div className="text-center">
+      <motion.span
+        className="text-4xl font-bold gradient-text"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        {number}{suffix}
+      </motion.span>
+      <p className="text-gray-400 text-sm">{label}</p>
+    </div>
   );
 }
 
