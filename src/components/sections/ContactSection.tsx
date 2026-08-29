@@ -58,15 +58,20 @@ export function ContactSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal direction="up" className="text-center mb-16">
+        <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+          <ScrollReveal direction="right" className="lg:pt-10">
             <Badge color="cyan" className="mb-4">Contacto</Badge>
-            <Heading level={2} className="mb-6">
+            <p className="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/40">Portal de salida / 05</p>
+            <Heading level={2} className="mb-6 text-4xl md:text-6xl">
               ¿Listo para <span className="gradient-text">transformar</span> tu negocio?
             </Heading>
-            <Paragraph size="lg" className="max-w-2xl mx-auto">
-              Contáctanos y descubre cómo podemos llevar tu proyecto al siguiente nivel
+            <Paragraph size="lg" className="max-w-xl">
+              Contáctanos y abrimos juntos la siguiente puerta: una experiencia clara, útil y diseñada para crecer.
             </Paragraph>
+            <div className="mt-12 border-l border-accent-cyan/50 pl-5 text-sm leading-relaxed text-gray-400">
+              <span className="mb-2 block font-mono text-xs uppercase tracking-[0.2em] text-accent-cyan">Canal directo</span>
+              Respondemos en menos de 24 horas con el primer mapa de tu proyecto.
+            </div>
           </ScrollReveal>
 
           <motion.div
@@ -74,7 +79,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass rounded-3xl p-8 md:p-12"
+            className="glass rounded-3xl p-8 md:p-12 lg:mt-10"
           >
             {status && (
               <div className={`mb-6 p-4 rounded-xl ${
