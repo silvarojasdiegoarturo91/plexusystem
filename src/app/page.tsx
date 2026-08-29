@@ -11,7 +11,7 @@ import { SceneRail } from "@/components/effects/SceneRail";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-dark">
+    <main id="main-content" className="min-h-screen scroll-mt-24 bg-dark">
       <Navbar />
       <SceneRail />
       <HeroSection />

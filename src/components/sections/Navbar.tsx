@@ -23,15 +23,22 @@ export function Navbar() {
   );
 
   return (
-    <motion.nav
-      style={{ background }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/5"
-    >
+    <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-4 z-[60] -translate-y-24 rounded-lg bg-accent-cyan px-4 py-2 text-sm font-semibold text-dark shadow-lg transition-transform focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+      >
+        Saltar al contenido
+      </a>
+      <motion.nav
+        style={{ background }}
+        className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 backdrop-blur-xl"
+      >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <motion.a
             href="#inicio"
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan"
             whileHover={{ scale: 1.02 }}
           >
             <div className="relative w-14 h-14 flex-shrink-0">
@@ -63,7 +70,7 @@ export function Navbar() {
 
           <motion.a
             href="#contacto"
-            className="hidden md:block px-5 py-2.5 bg-gradient-to-r from-accent-cyan to-accent-purple text-dark font-semibold rounded-full text-sm shadow-lg shadow-accent-cyan/20"
+            className="hidden rounded-full bg-gradient-to-r from-accent-cyan to-accent-purple px-5 py-2.5 text-sm font-semibold text-dark shadow-lg shadow-accent-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:block"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -105,6 +112,7 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </div>
-    </motion.nav>
+      </motion.nav>
+    </>
   );
 }
